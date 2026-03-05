@@ -9,11 +9,11 @@ import {
 } from "#utils/constants.js";
 import { IBoxTariffRow } from "#interfaces/box-tariffs-row.interface.js";
 import { getTariffs } from "#repositories/box-tariffs-get.repository.js";
-import knex from "#postgres/knex.js";
 import { ISpreadsheetRow } from "#interfaces/spreadsheet-row.interface.js";
+import { getSpreadsheets } from "#repositories/spreadsheet-get.repository.js";
 
 /** Return google sheets client */
-export async function getSheetsClient(): Promise<Sheets> {
+export async function gppgleSheetsClient(): Promise<Sheets> {
     const auth = new google.auth.GoogleAuth({
         keyFile: env.GOOGLE_SERVICE_ACCOUNT_JSON,
         scopes: [GOOGLE_SPREADSHEETS_URL],
@@ -69,11 +69,10 @@ export async function* streamSpreadsheetIds(
     let offset = 0;
     while (true) {
         // get spreadsheet chunk
-        const spreadsheets: ISpreadsheetRow[] = await knex("spreadsheets")
-            .select("spreadsheet_id")
-            .orderBy("spreadsheet_id")
-            .limit(limit)
-            .offset(offset);
+        const spreadsheets: ISpreadsheetRow[] = await getSpreadsheets(
+            offset,
+            limit,
+        );
 
         // have no one row
         if (!spreadsheets.length) break;
