@@ -69,10 +69,7 @@ export async function* streamSpreadsheetIds(
     let offset = 0;
     while (true) {
         // get spreadsheet chunk
-        const spreadsheets: ISpreadsheetRow[] = await getSpreadsheets(
-            offset,
-            limit,
-        );
+        const spreadsheets = await getSpreadsheets(limit, offset);
 
         // have no one row
         if (!spreadsheets.length) break;
