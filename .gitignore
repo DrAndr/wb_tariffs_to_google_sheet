@@ -1,4 +1,8 @@
 node_modules
 .local
 .env
+/.idea
+/.vscode
+/.credentials/
+package-lock.json
 dist

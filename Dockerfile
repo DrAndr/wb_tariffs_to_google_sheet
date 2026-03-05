@@ -13,7 +13,7 @@ RUN npm install --include=dev
 
 COPY . .
 
-RUN npm run build
+RUN NODE_OPTIONS="--max-old-space-size=2048" npm run build
 
 FROM node:20-alpine AS prod
 
