@@ -4,7 +4,7 @@ import {
     clearTail,
     getCurrentRowCount,
     getOrCreateSheet,
-    gppgleSheetsClient,
+    googleSheetsClient,
     streamSpreadsheetIds,
     streamTariffRows,
     writeRows,
@@ -76,7 +76,7 @@ async function updateOneSheet(
 }
 
 export async function updateSheets() {
-    const sheets = await gppgleSheetsClient();
+    const sheets = await googleSheetsClient();
     const today = getTodayDate();
 
     // create the generator pointer

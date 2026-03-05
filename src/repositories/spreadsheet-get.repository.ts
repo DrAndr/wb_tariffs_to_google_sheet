@@ -1,4 +1,4 @@
-import { knex } from "knex";
+import knex from "#postgres/knex.js";
 import { ISpreadsheetRow } from "#interfaces/spreadsheet-row.interface.js";
 import { DEFAULT_ROWS_LIMIT } from "#utils/constants.js";
 

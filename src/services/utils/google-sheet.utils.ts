@@ -13,7 +13,7 @@ import { ISpreadsheetRow } from "#interfaces/spreadsheet-row.interface.js";
 import { getSpreadsheets } from "#repositories/spreadsheet-get.repository.js";
 
 /** Return google sheets client */
-export async function gppgleSheetsClient(): Promise<Sheets> {
+export async function googleSheetsClient(): Promise<Sheets> {
     const auth = new google.auth.GoogleAuth({
         keyFile: env.GOOGLE_SERVICE_ACCOUNT_JSON,
         scopes: [GOOGLE_SPREADSHEETS_URL],
