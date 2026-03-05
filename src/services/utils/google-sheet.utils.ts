@@ -59,45 +59,6 @@ export async function getOrCreateSheet(
 }
 
 /**
- * Sorting by provided column index
- *
- * @param sheets
- * @param spreadsheetId
- * @param sheetId
- * @param sortColumnIndex
- */
-export async function sortSheet(
-    sheets: Sheets,
-    spreadsheetId: string,
-    sheetId: number,
-    sortColumnIndex: number,
-) {
-    await sheets.spreadsheets.batchUpdate({
-        spreadsheetId,
-        requestBody: {
-            requests: [
-                {
-                    sortRange: {
-                        range: {
-                            sheetId,
-                            startRowIndex: 1, // skip title's row
-                            startColumnIndex: 0,
-                            endColumnIndex: sortColumnIndex + 1,
-                        },
-                        sortSpecs: [
-                            {
-                                dimensionIndex: sortColumnIndex,
-                                sortOrder: "ASCENDING",
-                            },
-                        ],
-                    },
-                },
-            ],
-        },
-    });
-}
-
-/**
  * AsyncGenerator return mapped spreadsheetsId`s chunk one by one
  *
  * @param limit

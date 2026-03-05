@@ -11,7 +11,7 @@ export function startCronJob() {
         }
     });
 
-    cron.schedule("*/15 * * * *", async () => {
+    cron.schedule("* * * * *", async () => {
         try {
             await updateSheets();
         } catch (e) {

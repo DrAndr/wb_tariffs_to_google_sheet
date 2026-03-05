@@ -1,5 +1,10 @@
 import { faker } from "@faker-js/faker";
 
+/**
+ * Fake API response generator, can be used for development flow (new
+ * implementation or debugging)
+ */
+
 interface FakeState {
     currentDate: Date;
 }

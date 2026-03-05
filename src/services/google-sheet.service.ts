@@ -5,7 +5,6 @@ import {
     getCurrentRowCount,
     getOrCreateSheet,
     getSheetsClient,
-    sortSheet,
     streamSpreadsheetIds,
     streamTariffRows,
     writeRows,
@@ -28,7 +27,6 @@ async function updateOneSheet(
     try {
         const headerRowIndex = 1;
         const contentRowIndex = 2;
-        const sortColumnIndex = 2;
 
         const sheet = await getOrCreateSheet(
             sheets,
@@ -67,10 +65,6 @@ async function updateOneSheet(
                 newRowCount + 1,
                 prevRowCount,
             );
-        }
-
-        if (sheetId != null) {
-            await sortSheet(sheets, spreadsheetId, sheetId, sortColumnIndex);
         }
 
         console.log(
