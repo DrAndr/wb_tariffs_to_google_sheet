@@ -6,7 +6,6 @@ import { retry } from "#utils/retray.js";
 import getTodayDate from "#utils/get-today-date.js";
 
 export async function fetchBoxTariffs(): Promise<IBoxTariffs> {
-    console.log("env.WB_API_TOKEN", env.WB_API_TOKEN);
     return retry(
         async () => {
             const response = await axios.get(TARIFFS_BOX_BASE_URL, {
