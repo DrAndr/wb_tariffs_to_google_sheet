@@ -152,7 +152,7 @@ export async function* streamTariffRows(
         yield boxTariffs.map((row: IBoxTariffRow): (string | number)[] => [
             row.warehouse_name,
             row.geo_name,
-            row.box_delivery_coef_expr,
+            row.box_delivery_coef_expr ?? "-",
             row.updated_at.toISOString(),
         ]);
         if (boxTariffs.length < limit) break;

@@ -74,7 +74,7 @@ async function updateOneSheet(
         }
 
         console.log(
-            `[updateSheets] Done: ${spreadsheetId} (${newRowCount} rows)`,
+            `[updateSheets] Updated : ${spreadsheetId} (${newRowCount - 1} rows)`, // -1 for exclude header row
         );
     } catch (err) {
         console.error(`[updateSheets] ERROR: ${spreadsheetId}:`, err);
@@ -105,5 +105,5 @@ export async function updateSheets() {
         }
     }
 
-    console.log(`[updateSheets] Done : ${total - failed}/${total} succeeded`);
+    console.log(`[updateSheets] Updated : ${total - failed} of ${total}`);
 }

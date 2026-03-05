@@ -10,7 +10,10 @@ export async function getTariffs(
         .where({ date })
         .limit(limit)
         .offset(offset)
-        .orderBy("box_delivery_coef_expr", "asc");
+        .orderBy([
+            { column: "box_delivery_coef_expr", order: "asc" },
+            { column: "warehouse_name", order: "asc" },
+        ]);
 
     return rows;
 }

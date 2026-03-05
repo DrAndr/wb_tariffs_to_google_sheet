@@ -6,4 +6,7 @@ export async function importTariffs() {
     const raw = await fetchBoxTariffs();
     const data = tariffsSchema.parse(raw);
     await saveTariffs(data);
+    console.log(
+        `[importTariffs] : ${raw?.warehouseList?.length} tariffs rows imported`,
+    );
 }
