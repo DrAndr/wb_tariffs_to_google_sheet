@@ -74,8 +74,10 @@ export async function* streamSpreadsheetIds(
         // have no one row
         if (!spreadsheets.length) break;
 
-        // return mapped chunk
-        yield spreadsheets.map((row) => row.spreadsheet_id);
+        // return rows one by one instead of full chunk
+        for (const row of spreadsheets) {
+            yield row.spreadsheet_id;
+        }
 
         // last page
         if (spreadsheets.length < limit) break;

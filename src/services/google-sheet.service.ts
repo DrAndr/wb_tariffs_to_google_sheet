@@ -17,11 +17,13 @@ import Sheets = sheets_v4.Sheets;
  *
  * @param sheets Sheets
  * @param spreadsheetId String
+ * @param headerRow String[][]
  * @param tariffGenerator AsyncGenerator
  */
 async function updateOneSheet(
     sheets: Sheets,
     spreadsheetId: string,
+    headerRow: string[][],
     tariffGenerator: () => AsyncGenerator<(string | number)[][], void, unknown>,
 ): Promise<void> {
     try {
@@ -37,14 +39,6 @@ async function updateOneSheet(
 
         const prevRowCount = await getCurrentRowCount(sheets, spreadsheetId);
 
-        const headerRow = [
-            [
-                "Название склада",
-                "Адрес склада",
-                "Коефициент на доставку",
-                "Обновлен",
-            ],
-        ];
         // write data after header
         await writeRows(sheets, spreadsheetId, headerRowIndex, headerRow);
 
@@ -78,6 +72,14 @@ async function updateOneSheet(
 export async function updateSheets() {
     const sheets = await googleSheetsClient();
     const today = getTodayDate();
+    const headerRow = [
+        [
+            "Название склада",
+            "Адрес склада",
+            "Коефициент на доставку",
+            "Обновлен",
+        ],
+    ];
 
     // create the generator pointer
     const makeTariffGen = (): AsyncGenerator<
@@ -89,14 +91,11 @@ export async function updateSheets() {
     let total = 0;
     let failed = 0;
 
-    // looping spreadsheets chunks idPage === 1 to max limit of spreadsheet rows
-    for await (const idPage of streamSpreadsheetIds()) {
-        // looping spreadsheets for update with data
-        for (const spreadsheetId of idPage) {
-            // makeTariffGen - pass rows generator in to updateOneSheet
-            await updateOneSheet(sheets, spreadsheetId, makeTariffGen);
-            total++;
-        }
+    // looping spreadsheets one by one for updating tariffs
+    for await (const spreadsheetId of streamSpreadsheetIds()) {
+        // makeTariffGen - pass rows generator in to updateOneSheet
+        await updateOneSheet(sheets, spreadsheetId, headerRow, makeTariffGen);
+        total++;
     }
 
     console.log(`[updateSheets] Updated : ${total - failed} of ${total}`);

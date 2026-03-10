@@ -6,7 +6,7 @@ export async function getTariffs(
     limit: number,
     offset: number,
 ): Promise<IBoxTariffRow[]> {
-    const rows: IBoxTariffRow[] = await knex<IBoxTariffRow>("box_tariffs")
+    return knex<IBoxTariffRow>("box_tariffs")
         .where({ date })
         .limit(limit)
         .offset(offset)
@@ -14,6 +14,4 @@ export async function getTariffs(
             { column: "box_delivery_coef_expr", order: "asc" },
             { column: "warehouse_name", order: "asc" },
         ]);
-
-    return rows;
 }
